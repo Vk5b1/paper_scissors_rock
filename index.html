@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Rock Papers Scissors</title>
+        <link rel = 'stylesheet' href = 'styles.css'>
+        <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;600&display=swap" rel="stylesheet"> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    </head>
+
+    <body>
+        <div class = "gameContainer">
+            <div class="scoreBoardContainer">
+                <img src = 'logo.svg' id = 'logo' />
+                <div class = 'scoreBoard'>
+                    <h4>score</h4>
+                    <h1 id = 'score'>12</h1>
+                </div> 
+            </div>
+
+            <div class="weaponContainer" >
+                <div class='icons paper'>
+                    <button id = 'paperbtn' class = "selectYourWeapon" value = 'paper'><img src = 'icon-paper.svg' alt = 'papersIcon' id = 'icon-paper'/></button>
+                </div>
+                <div  class = 'icons scissors'>
+                    <button id = 'scissorsbtn' class = "selectYourWeapon" value = 'scissors'><img src = 'icon-scissors.svg' alt = 'scissorsIcon' id = 'icon-scissors'/></button>
+                </div>
+                <div  class = 'icons rock'>
+                    <button id="rockbtn" class = "selectYourWeapon" value = 'rock'><img src = 'icon-rock.svg' alt = "rockIcon" id = 'icon-rock'/></button>
+                </div>
+            </div> 
+            <div class="printRules">
+                <div class = 'rulesBoxHeader'>
+                    <p>RULES</p>
+                    <button id = 'closebtn'><img src = 'icon-close.svg' alt = 'close' id = 'cancelbtn' /></button>
+                </div>
+                <img src="image-rules.svg" alt="rules" id = "rulesBox" width="200px" height="200px" />
+            </div>
+            <div class="gameBox">
+                <div class="playerSection">
+                    <h5 class = 'text'>YOU PICKED</h5>
+                    <button id = 'iconField'><img id = 'selectedIcon' /></button>
+                </div>
+                <div class="victoryBoard">
+                    <h1 id = 'winOrLose'></h1>
+                    <button id = 'newGame'>PLAY AGAIN</button>
+                </div>
+                <div class = "computerSection">
+                    <h5 class = 'text'>THE HOUSE PICKED</h5>
+                    <button class = 'weaponId setWeaponOn' id = 'computerIconField'><img id = 'computerSelectedIcon'/></button>
+                </div>
+            </div>
+            <div class="Gamerules">
+                <input type="button" id="rules" value = 'rules' />
+            </div>
+
+        </div>
+        <script src = "script.js"></script>
+    </body>
+</html>
