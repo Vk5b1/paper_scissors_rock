@@ -1,3 +1,6 @@
+//game container
+let gameConteiner = document.querySelector('.gameContainer');
+
 //rules accessors
 let rulesbtn = document.getElementById('rules');
 let closeRulesBox = document.getElementById('closebtn');
@@ -17,9 +20,16 @@ let youOrComputer = document.getElementById('winOrLose');
 let playAgainbtn = document.getElementById('newGame');
 let winBox = document.querySelector('.victoryBoard');
 
+//gradientStyle
+let gradientStyle0 = document.querySelector('.gradientStyle0');
+let gradientStyle1 = document.querySelector('.gradientStyle1');
 
 //score
 let score = document.getElementById('score');
+
+//for Animation
+let playerWeaponAnimation = document.getElementById('addAnimation0');
+let computerWeaponAnimation = document.getElementById('addAnimation1');
 
 
 //initial values
@@ -27,7 +37,6 @@ score.textContent = 0;
 gameBox.classList.add('hidden');
 rulesBox.classList.add('hidden');
 winBox.classList.add('hidden');
-
 const weapons_array = ['paper','scissors','rock'];
 let borderColors = ['hsl(230, 89%, 62%)','hsl(39, 89%, 49%)','hsl(349, 71%, 52%)'];
 let playerScore = 0;
@@ -44,6 +53,7 @@ for(let i = 0; i<selectWeapon.length; i++){
         weaponBox.classList.add('hidden');
         gameBox.classList.remove('hidden');
         selectedIcon.src = `icon-${selectWeapon[i].value}.svg`; 
+        selectedIcon.style.width = '80px';
         playerNum = Number(weapons_array.indexOf(selectWeapon[i].value));
         border(playerNum,iconField);
         // console.log(playerNum);
@@ -68,6 +78,13 @@ rulesbtn.addEventListener('click',function() {
 closeRulesBox.addEventListener('click', () => {
     rulesBox.classList.add('hidden');
 }); 
+//closing through ESC button
+document.addEventListener('keydown',function(event){
+    // console.log(event);
+    if(event.key === 'Escape' && !rulesBox.classList.contains('hidden')){
+        rulesBox.classList.add('hidden');
+    }
+})
 
 //for computer let's generate a random weapon excepting player's choice.
 function computerWeaponGenerator(){
@@ -75,8 +92,9 @@ function computerWeaponGenerator(){
     weapons_array1.splice(weapons_array.indexOf(icon),1);
     computerNum = Math.trunc(Math.random()*2);
     computerIcon.src = `icon-${weapons_array1[computerNum]}.svg`;
+    computerIcon.style.width = '80px';
 
-    setTimeout(t.removeAttribute('id'),1000);
+    t.removeAttribute('id');
     border(weapons_array.indexOf(weapons_array1[computerNum]),t);
 
     decideWinner(weapons_array1[computerNum],icon);
@@ -89,10 +107,18 @@ playAgainbtn.addEventListener('click',() =>{
     t.style.border = 'none';
     gameBox.classList.add('hidden');
     weaponBox.classList.remove('hidden');
+    winBox.classList.add('hidden');
+    t.style.boxShadow = '';
+    gradientStyle0.style.background = '';
+    gradientStyle1.style.background = '';
+    gradientStyle1.style.width = '';
+    gradientStyle1.style.height = '';
+    gradientStyle0.style.width = '';
+    gradientStyle0.style.height = '';
     // console.log(playAgainbtn.style.textContent.fontWeight);
 });
 
-//finding who is the winner.
+//find who is the winner.
 const decideWinner = (comIcon,playIcon) =>{
     let wol;
     // console.log(comIcon,playIcon);
@@ -117,27 +143,40 @@ const decideWinner = (comIcon,playIcon) =>{
                             wol = 0;
                         }
                         break;
-        case 'default' : document.write('something went wrong');
+        default : document.write('something went wrong');
     }
 
     if(wol === 1){
         youOrComputer.textContent = 'YOU WIN';
         playAgainbtn.style.color = 'hsl(230, 89%, 62%)';
-        setInterval(winBox.classList.remove('hidden'),1000);
         playerScore += 1;
-        score.textContent = playerScore;
+        setTimeout(function(){
+            winBox.classList.remove('hidden');
+            score.textContent = playerScore;
+            gradientStyle0.style.background = 'radial-gradient(hsl(214, 47%, 23%),hsl(225,48%,19%),hsl(237,49%,15%)';
+            gradientStyle0.style.width = '380px';
+            gradientStyle0.style.height = '380px';
+        },1000);
+        
+
         // console.log(wol);
     }
     if(wol === 0){
         youOrComputer.textContent = 'YOU LOSE';
         playAgainbtn.style.color = 'hsl(349, 71%, 52%)';
-        setInterval(winBox.classList.remove('hidden'),1000);
         if(playerScore > 0){
             playerScore -= 1;
         }
-        score.textContent = playerScore;
+        setTimeout(function(){
+            winBox.classList.remove('hidden');
+            score.textContent = playerScore;
+            gradientStyle1.style.width = '370px';
+            gradientStyle1.style.height = '370px';
+            gradientStyle1.style.background = 'radial-gradient(hsl(214, 47%, 23%),hsl(225,48%,19%),hsl(237,49%,15%)';
+        },1000);
+        
         // console.log(wol);
     }
+    t.style.boxShadow = '0px 5px 0px 0px #999 inset';
 }   
-
 
